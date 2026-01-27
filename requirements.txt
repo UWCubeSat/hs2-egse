@@ -1,0 +1,3 @@
+py-kelctl
+pyserial
+matplotlib
