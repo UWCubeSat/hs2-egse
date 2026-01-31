@@ -149,11 +149,10 @@ class BatteryDischargeScheduler:
                     
         except KeyboardInterrupt:
             print("\n\nStopping discharge process...")
+            self.cleanup()            
         except Exception as e:
             print(f"\nError: {e}")
             raise
-        finally:
-            self.cleanup()
     
     def cleanup(self):
         """Clean up and turn off the load."""
