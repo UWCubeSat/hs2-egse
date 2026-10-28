@@ -153,6 +153,7 @@ def run(args, points):
                         if time.monotonic() - start >= points[index + 1][0]:
                             raise RuntimeError("Schedule step expired during PSU setup")
                         psu.write(":OUTP CH1,ON")
+                        time.sleep(args.on_settle)  # Output reads ~0 V until it settles.
                     elif mode == "discharge":
                         load.current = -requested
                         if time.monotonic() - start >= points[index + 1][0]:
@@ -218,6 +219,8 @@ def main():
                         help="measurement interval in seconds (default: 1)")
     parser.add_argument("--off-settle", type=nonnegative_number, default=0.2,
                         help="seconds to wait after OFF commands before readback (default: 0.2)")
+    parser.add_argument("--on-settle", type=nonnegative_number, default=1.0,
+                        help="seconds to wait after PSU output ON before measuring (default: 1)")
     parser.add_argument("--off-current-tolerance", type=nonnegative_number, required=True,
                         help="allowed absolute OFF-state branch current (A); use instrument accuracy")
     parser.add_argument("--log", default="battery_log.csv", help="output CSV log")
