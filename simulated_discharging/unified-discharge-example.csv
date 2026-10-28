@@ -1,5 +1,6 @@
 time_seconds,current_amps
-1,0.5
+0,0
+5,0.5
 10,0
 15,0.25
 20,0
